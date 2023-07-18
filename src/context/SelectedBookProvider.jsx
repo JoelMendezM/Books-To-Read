@@ -4,6 +4,8 @@ import { useEffect } from "react";
 
 const SelectedBookProvider = ({ children }) => {
   const [availableBooks, setAvailableBooks] = useState([]);
+  const [updatedAmount, setUpdatedAmount] = useState(availableBooks.length);
+  const [selectedBook, setSelectedBook] = useState([]);
 
   useEffect(() => {
     const fetchData = async (url) => {
@@ -14,6 +16,7 @@ const SelectedBookProvider = ({ children }) => {
         }
         const data = await response.json();
         const arrayBooks = data.library;
+        setUpdatedAmount(arrayBooks.length);
 
         return setAvailableBooks(arrayBooks);
       } catch (error) {
@@ -25,10 +28,35 @@ const SelectedBookProvider = ({ children }) => {
     fetchData("../../books.json");
   }, []);
 
+  const addBook = (ISBN) => {
+    setUpdatedAmount((updatedAmount) => updatedAmount - 1);
+
+    const bookIndex = availableBooks.findIndex((book) => book.ISBN === ISBN);
+
+    if (bookIndex !== -1) {
+      const updatedAvailableBooks = [...availableBooks];
+      const booksSelected = updatedAvailableBooks.splice(bookIndex, 1)[0];
+
+      setAvailableBooks(updatedAvailableBooks);
+
+      setSelectedBook((prevSelectedBook) => [
+        ...prevSelectedBook,
+        booksSelected,
+      ]);
+    }
+  };
+
+  const removeBook = () => {};
+
   return (
     <SelectedBookContext.Provider
       value={{
+        numberOfAvailableBooks: availableBooks.length,
         books: availableBooks,
+        selectedBooks: selectedBook,
+        addBook,
+        removeBook,
+        updatedAmount: updatedAmount,
       }}
     >
       {children}

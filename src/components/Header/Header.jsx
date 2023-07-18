@@ -1,7 +1,13 @@
+import { useContext } from "react";
+import SelectedBookContext from "../../context/selected-book-context";
+
 const Header = () => {
+  const { updatedAmount, selectedBooks } = useContext(SelectedBookContext);
+
   return (
     <section>
-      <p>8 Libros disponibles</p>
+      <p>{updatedAmount} - Libros disponibles</p>
+      <p>Libros por leer: {selectedBooks.length}</p>
     </section>
   );
 };
