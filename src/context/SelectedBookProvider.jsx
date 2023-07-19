@@ -30,18 +30,12 @@ const SelectedBookProvider = ({ children }) => {
 
   const addBook = (ISBN) => {
     setUpdatedAmount((updatedAmount) => updatedAmount - 1);
+    const existingBook = availableBooks.find((book) => book.book.ISBN === ISBN);
 
-    const bookIndex = availableBooks.findIndex((book) => book.ISBN === ISBN);
-
-    if (bookIndex !== -1) {
-      const updatedAvailableBooks = [...availableBooks];
-      const booksSelected = updatedAvailableBooks.splice(bookIndex, 1)[0];
-
-      setAvailableBooks(updatedAvailableBooks);
-
+    if (existingBook) {
       setSelectedBook((prevSelectedBook) => [
         ...prevSelectedBook,
-        booksSelected,
+        existingBook,
       ]);
     }
   };
