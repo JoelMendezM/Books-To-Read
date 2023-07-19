@@ -2,11 +2,11 @@ import { Button, Card, CardBody, Image } from "@chakra-ui/react";
 import { useContext } from "react";
 import SelectedBookContext from "../../../context/selected-book-context";
 
-const BookItem = ({ cover }) => {
+const BookItem = ({ cover, id }) => {
   const { addBook } = useContext(SelectedBookContext);
 
   const addBookHandler = () => {
-    addBook();
+    addBook(id);
   };
 
   return (
