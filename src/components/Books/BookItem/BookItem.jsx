@@ -1,17 +1,19 @@
 import { Button, Card, CardBody, Image } from "@chakra-ui/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import SelectedBookContext from "../../../context/selected-book-context";
 
 const BookItem = ({ cover, id }) => {
   const { addBook } = useContext(SelectedBookContext);
+  const [isClicked, setIsClicked] = useState(false);
 
   const addBookHandler = () => {
     addBook(id);
+    setIsClicked(true);
   };
 
   return (
     <>
-      <Card>
+      <Card opacity={isClicked ? 0.5 : 1}>
         <CardBody>
           <Image
             src={cover}
@@ -21,7 +23,13 @@ const BookItem = ({ cover, id }) => {
             maxH="250px"
           />
         </CardBody>
-        <Button onClick={addBookHandler}> Add</Button>
+        <Button
+          isDisabled={isClicked ? true : false}
+          onClick={addBookHandler}
+          opacity={isClicked ? 0.3 : 1}
+        >
+          Add
+        </Button>
       </Card>
     </>
   );

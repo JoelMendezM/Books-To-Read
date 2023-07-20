@@ -31,7 +31,6 @@ const SelectedBookProvider = ({ children }) => {
   const addBook = (ISBN) => {
     setUpdatedAmount((updatedAmount) => updatedAmount - 1);
     const existingBook = availableBooks.find((book) => book.book.ISBN === ISBN);
-
     if (existingBook) {
       setSelectedBook((prevSelectedBook) => [
         ...prevSelectedBook,

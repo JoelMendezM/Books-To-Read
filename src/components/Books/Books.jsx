@@ -4,7 +4,7 @@ import { useContext } from "react";
 import SelectedBookContext from "../../context/selected-book-context";
 
 const Books = () => {
-  const { books } = useContext(SelectedBookContext);
+  const { books, buttonIsClicked } = useContext(SelectedBookContext);
 
   return (
     <Grid
@@ -19,6 +19,7 @@ const Books = () => {
             key={book.book.ISBN}
             id={book.book.ISBN}
             cover={book.book.cover}
+            isClicked={buttonIsClicked}
           />
         </GridItem>
       ))}
