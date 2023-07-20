@@ -1,10 +1,10 @@
-import BookItem from "./BookItem/BookItem";
-import { Grid, GridItem } from "@chakra-ui/react";
 import { useContext } from "react";
 import SelectedBookContext from "../../context/selected-book-context";
+import { Grid, GridItem } from "@chakra-ui/react";
+import BookItem from "../Books/BookItem/BookItem";
 
-const Books = () => {
-  const { books, buttonIsClicked } = useContext(SelectedBookContext);
+const SelectedBooks = () => {
+  const { selectedBooks } = useContext(SelectedBookContext);
 
   return (
     <Grid
@@ -13,13 +13,12 @@ const Books = () => {
       rowGap={1}
       columnGap={5}
     >
-      {books.map((book) => (
+      {selectedBooks.map((book) => (
         <GridItem key={book.book.ISBN}>
           <BookItem
             key={book.book.ISBN}
             id={book.book.ISBN}
             cover={book.book.cover}
-            isClicked={buttonIsClicked}
           />
         </GridItem>
       ))}
@@ -27,4 +26,4 @@ const Books = () => {
   );
 };
 
-export default Books;
+export default SelectedBooks;
