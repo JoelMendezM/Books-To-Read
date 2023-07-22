@@ -1,12 +1,10 @@
-import { useContext } from "react";
-import SelectedBookContext from "../../context/selected-book-context";
+import { useBooks } from '../../context/SelectedBookProvider';
 
 const Header = () => {
-  const { updatedAmount, selectedBooks } = useContext(SelectedBookContext);
-
+  const { books, selectedBooks } = useBooks();
   return (
     <section>
-      <p>{updatedAmount} - Libros disponibles</p>
+      <p>{books.length - selectedBooks.length} - Libros disponibles</p>
       <p>Libros por leer: {selectedBooks.length}</p>
     </section>
   );
