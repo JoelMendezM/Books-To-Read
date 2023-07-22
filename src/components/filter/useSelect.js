@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useBooks } from '../../context/SelectedBookProvider';
+import { useBooks } from "../../context/SelectedBookProvider";
 
 export const useSelect = () => {
   const { setGenre } = useBooks();
@@ -10,21 +9,21 @@ export const useSelect = () => {
 
   const options = [
     {
-      id: 'Terror',
-      text: 'Terror'
+      id: "Terror",
+      text: "Terror",
     },
     {
-      id: 'Ciencia ficción',
-      text: 'SCI-FI'
+      id: "Ciencia ficción",
+      text: "SCI-FI",
     },
     {
-      id: 'Zombies',
-      text: 'Zombie'
+      id: "Zombies",
+      text: "Zombie",
     },
     {
-      id: 'Fantasía',
-      text: 'Fantasy'
-    }
+      id: "Fantasía",
+      text: "Fantasy",
+    },
   ];
 
   return { options, handleGenre };
