@@ -41,7 +41,7 @@ const SelectedBookProvider = ({ children }) => {
       localStorage.setItem("booksSelected", JSON.stringify(selectedBook));
     };
 
-    fetchData("../../public/books.json");
+    fetchData("./books.json");
   }, [genre, selectedBook]);
 
   const addBook = (ISBN) => {
