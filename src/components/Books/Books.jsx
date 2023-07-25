@@ -12,12 +12,16 @@ const Books = () => {
       templateRows="repeat(2, 1fr)"
       rowGap={1}
       columnGap={5}
+      bgColor="#3a3a3a"
+      p={10}
+      borderRadius={10}
+      ml={10}
     >
       {/*Children.toArray to create unique children and about to put the key */}
       {Children.toArray(
         books.map((book) => {
           return (
-            <GridItem>
+            <GridItem m={2}>
               <BookItem
                 id={book.book.ISBN}
                 cover={book.book.cover}

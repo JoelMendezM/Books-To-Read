@@ -1,3 +1,4 @@
+import { Flex } from "@chakra-ui/react";
 import "./App.css";
 // import BookSearch from "./components/Books/BookSearch/BookSearch";
 import Books from "./components/Books/Books";
@@ -11,14 +12,18 @@ function App() {
     <SelectedBookProvider>
       <Header />
       <Filter />
+      <Flex flexDirection="row">
+        <section>
+          <Books />
+        </section>
+        <section>
+          <SelectedBooks />
+        </section>
+      </Flex>
+
       {/* <BookSearch /> */}
-      <Books />
-      <section>
-        <p>LIBROS SELECCIONADOS</p>
-        <SelectedBooks />
-      </section>
+
     </SelectedBookProvider>
   );
 }
-
 export default App;

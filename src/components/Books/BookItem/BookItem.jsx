@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Card, CardBody, Image } from "@chakra-ui/react";
+import { Button, Card, CardBody, Center, Image } from "@chakra-ui/react";
 import { useBooks } from "../../../context/SelectedBookProvider";
 import { ADD, REMOVE } from "../../../context/types";
 
@@ -32,13 +32,16 @@ const BookItem = ({ cover, id, idx }) => {
             maxH="250px"
           />
         </CardBody>
-        <Button
-          isDisabled={isAdded && idx === "availableBooks"}
-          onClick={handleBookState}
-          opacity={isAdded && idx === "availableBooks" ? 0.3 : 1}
-        >
-          {idx === "availableBooks" ? ADD : REMOVE}
-        </Button>
+        <Center>
+          <Button
+            w={100}
+            isDisabled={isAdded && idx === "availableBooks"}
+            onClick={handleBookState}
+            opacity={isAdded && idx === "availableBooks" ? 0.3 : 1}
+          >
+            {idx === "availableBooks" ? ADD : REMOVE}
+          </Button>
+        </Center>
       </Card>
     </>
   );
