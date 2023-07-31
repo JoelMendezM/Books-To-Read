@@ -6,11 +6,14 @@ const SelectedBookContext = createContext({ items: [] });
 
 const SelectedBookProvider = ({ children }) => {
   const [availableBooks, setAvailableBooks] = useState([]);
+  const [filteredBooksState, setFilteredBooksState] = useState([]);
   const [selectedBook, setSelectedBook] = useState(() => {
     const storedData = localStorage.getItem("booksSelected");
     return storedData ? JSON.parse(storedData) : [];
   });
   const [genre, setGenre] = useState("");
+  const [disabledBooksCount, setDisabledBooksCount] = useState(0);
+  const [addedBooks, setAddedBooks] = useState({});
 
   const algoCRUD = useRef();
 
@@ -32,17 +35,38 @@ const SelectedBookProvider = ({ children }) => {
           const filteredBooks = arrayBooks.filter(
             (data) => data.book.genre === genreToFilter
           );
-          setAvailableBooks(filteredBooks);
+          setFilteredBooksState(filteredBooks);
+
+          const countDisabledBooks = filteredBooks.reduce(
+            (count, book) => (addedBooks[book.book.ISBN] ? count + 1 : count),
+            0
+          );
+
+          setDisabledBooksCount(countDisabledBooks);
+
+          localStorage.setItem("availableBooks", JSON.stringify(filteredBooks));
+          localStorage.setItem("booksSelected", JSON.stringify(selectedBook));
         }
       } catch (error) {
         // Handle any errors that occurred during the fetch
         console.error("Error:", error);
       }
-      localStorage.setItem("booksSelected", JSON.stringify(selectedBook));
     };
-
+    localStorage.setItem("booksSelected", JSON.stringify(selectedBook));
+    localStorage.setItem("genre", JSON.stringify(genre));
     fetchData("../../public/books.json");
-  }, [genre, selectedBook]);
+
+    window.addEventListener("storage", (event) => {
+      if (event.key === "booksSelected" && event.newValue && genre === "") {
+        const newAvailableBooks = JSON.parse(event.newValue);
+        setSelectedBook(newAvailableBooks);
+      }
+    });
+
+    return () => {
+      window.removeEventListener("storage", () => {});
+    };
+  }, [genre, selectedBook, addedBooks]);
 
   const addBook = (ISBN) => {
     algoCRUD.current = ADD;
@@ -52,6 +76,11 @@ const SelectedBookProvider = ({ children }) => {
         ...prevSelectedBook,
         existingBook,
       ]);
+
+      setAddedBooks((prevAddedBooks) => ({
+        ...prevAddedBooks,
+        [ISBN]: true,
+      }));
     }
   };
 
@@ -59,6 +88,10 @@ const SelectedBookProvider = ({ children }) => {
     algoCRUD.current = REMOVE;
     const itemToRemove = selectedBook.filter((book) => book.book.ISBN !== ISBN);
     setSelectedBook(itemToRemove);
+    setAddedBooks((prevAddedBooks) => ({
+      ...prevAddedBooks,
+      [ISBN]: false,
+    }));
   };
 
   const store = {
@@ -71,6 +104,8 @@ const SelectedBookProvider = ({ children }) => {
     genre,
     setGenre,
     setSelectedBook,
+    filteredBooksState,
+    disabledBooksCount,
   };
 
   return (
