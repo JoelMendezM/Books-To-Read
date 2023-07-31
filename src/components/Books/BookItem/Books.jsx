@@ -1,7 +1,7 @@
 import { Children } from "react";
-import BookItem from "./BookItem/BookItem";
+import BookItem from "./BookItem";
 import { Grid, GridItem } from "@chakra-ui/react";
-import { useBooks } from "../../context/SelectedBookProvider";
+import { useBooks } from "../../../context/SelectedBookProvider";
 
 const Books = () => {
   const { books, filteredBooksState, genre } = useBooks();
