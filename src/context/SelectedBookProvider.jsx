@@ -54,7 +54,7 @@ const SelectedBookProvider = ({ children }) => {
     };
     localStorage.setItem("booksSelected", JSON.stringify(selectedBook));
     localStorage.setItem("genre", JSON.stringify(genre));
-    fetchData("../../public/books.json");
+    fetchData("./public/books.json");
 
     window.addEventListener("storage", (event) => {
       if (event.key === "booksSelected" && event.newValue && genre === "") {
