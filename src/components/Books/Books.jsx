@@ -4,7 +4,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import { useBooks } from "../../context/SelectedBookProvider";
 
 const Books = () => {
-  const { books } = useBooks();
+  const { books, filteredBooksState, genre } = useBooks();
 
   return (
     <Grid
@@ -19,7 +19,7 @@ const Books = () => {
     >
       {/*Children.toArray to create unique children and about to put the key */}
       {Children.toArray(
-        books.map((book) => {
+        (genre === "" ? books : filteredBooksState).map((book) => {
           return (
             <GridItem m={2}>
               <BookItem

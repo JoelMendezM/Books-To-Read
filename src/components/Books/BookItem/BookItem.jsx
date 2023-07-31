@@ -5,18 +5,19 @@ import { ADD, REMOVE } from "../../../context/types";
 
 const BookItem = ({ cover, id, idx }) => {
   const { addBook, removeBook, selectedBooks } = useBooks();
-
   const [isAdded, setIsAdded] = useState(false);
 
   useEffect(() => {
     setIsAdded(selectedBooks.some((book) => book.book.ISBN === id));
-  }, [selectedBooks, id]);
+  }, [selectedBooks, id, isAdded]);
 
   const handleBookState = () => {
     if (idx === "availableBooks") {
       addBook(id);
+      setIsAdded(true);
     } else {
       removeBook(id);
+      setIsAdded(false);
     }
   };
 
