@@ -9,6 +9,10 @@ export const useSelect = () => {
 
   const options = [
     {
+      id: "",
+      text: "Select a movie genre",
+    },
+    {
       id: "Terror",
       text: "Terror",
     },
