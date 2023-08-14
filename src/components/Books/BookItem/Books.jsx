@@ -1,37 +1,24 @@
-import { Children } from "react";
 import BookItem from "./BookItem";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useBooks } from "../../../context/SelectedBookProvider";
 
 const Books = () => {
   const { books, filteredBooksState, genre } = useBooks();
 
   return (
-    <Grid
-      templateColumns="repeat(4, 1fr)"
-      templateRows="repeat(2, 1fr)"
-      rowGap={1}
-      columnGap={5}
-      bgColor="#3a3a3a"
-      p={10}
-      borderRadius={10}
-      ml={10}
-    >
+    <Flex flexWrap="wrap" justifyContent="center" gap={4}>
       {/*Children.toArray to create unique children and about to put the key */}
-      {Children.toArray(
-        (genre === "" ? books : filteredBooksState).map((book) => {
-          return (
-            <GridItem m={2}>
-              <BookItem
-                id={book.book.ISBN}
-                cover={book.book.cover}
-                idx={"availableBooks"}
-              />
-            </GridItem>
-          );
-        })
-      )}
-    </Grid>
+      {(genre === "" ? books : filteredBooksState).map((book) => {
+        return (
+          <BookItem
+            key={book.book.ISBN}
+            id={book.book.ISBN}
+            cover={book.book.cover}
+            idx={"availableBooks"}
+          />
+        );
+      })}
+    </Flex>
   );
 };
 
