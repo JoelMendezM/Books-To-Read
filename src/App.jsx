@@ -6,21 +6,18 @@ import Header from "./components/Header/Header";
 import SelectedBooks from "./components/SelectedBooks/SelectedBooks";
 import { Filter } from "./components/filter/Filter";
 import { SelectedBookProvider } from "./context/SelectedBookProvider";
+// import Hero from "./components/Hero/Hero";
 
 function App() {
   return (
     <SelectedBookProvider>
+      {/* <Hero /> */}
       <Header />
       <Filter />
-      <Flex flexDirection="row">
-        <section>
-          <Books />
-        </section>
-        <section>
-          <SelectedBooks />
-        </section>
+      <Flex mb={20}>
+        <Books />
+        <SelectedBooks />
       </Flex>
-
       {/* <BookSearch /> */}
     </SelectedBookProvider>
   );

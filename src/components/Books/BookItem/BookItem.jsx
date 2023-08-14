@@ -23,19 +23,31 @@ const BookItem = ({ cover, id, idx }) => {
 
   return (
     <>
-      <Card opacity={isAdded && idx === "availableBooks" ? 0.5 : 1}>
-        <CardBody>
+      <Card
+        opacity={isAdded && idx === "availableBooks" ? 0.5 : 1}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        borderRadius={10}
+        border="1mm ridge #474747aa;"
+        p={3}
+        maxH={260}
+      >
+        <CardBody alignItems="center" minH={120} m={2}>
           <Image
             src={cover}
+            maxW="150px"
+            maxH="220px"
             alt="image cover book"
-            borderRadius="lg"
-            maxW="180px"
-            maxH="250px"
+            w="100%"
+            h="auto"
+            objectFit="cover"
           />
         </CardBody>
         <Center>
           <Button
-            w={100}
+            w={80}
+            h={30}
             isDisabled={isAdded && idx === "availableBooks"}
             onClick={handleBookState}
             opacity={isAdded && idx === "availableBooks" ? 0.3 : 1}
